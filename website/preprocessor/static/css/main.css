@@ -1,0 +1,45 @@
+body {
+    background-color: #F5F5F5;
+    color: #333333;
+    font-family: Arial, sans-serif;
+}
+
+.csv-button {
+    background-color: #f0a628;
+    color: #FFFFFF;
+    border: none;
+    padding: 18px 60px;
+    font-size: 30px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.container-fluid.full-height {
+    min-height: 100vh;
+    position: relative;
+}
+
+.csv-button:hover {
+    background-color: #E57C23;
+}
+
+#dropOverlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: #fff;
+    font-size: 3em;
+    text-align: center;
+    padding-top: 23%;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+#id_file {
+    display: none;
+}
