@@ -1,0 +1,46 @@
+{% extends 'uploader.html' %}
+{% load static %}
+
+{% block title %}
+<title>Error</title>
+{% endblock %}
+
+{% block dependencies %}
+<link rel="stylesheet" href="{% static 'css/gears.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<style>
+    a.no-decoration {
+        color: inherit;
+    }
+</style>
+
+<div class="container-fluid full-height" style="padding-top: 130px;">
+
+    <div class="row">
+        <div class="col-7 mx-auto">
+
+            <div class="col-12 mx-auto text-center">
+
+
+                <h1>Houston, we have a problem!</h1>
+                <h2>{{ error_message }}</h2>
+                <h3>You can go back to our <a class="no-decoration" href="{% url 'uploader' %}">Homepage</a></h3>
+
+                <div class="mt-5" id="gears">
+                    <div class="gear"></div>
+                    <div class="gear2"></div>
+                    <div class="gear3"></div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}
