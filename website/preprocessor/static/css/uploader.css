@@ -37,3 +37,29 @@
 #id_file {
     display: none;
 }
+
+#id_delimiter {
+    display: none;
+}
+
+.no-outline:focus {
+    box-shadow: none !important;
+    border-color: inherit !important;
+}
+
+.swal2-popup .swal2-title,
+.swal2-popup .swal2-html-container {
+    font-weight: 50 !important;
+    color: #333333 !important;
+}
+
+#delimiter-submit {
+    background-color: #2c7dfa;
+    color: #FFFFFF;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+#delimiter-submit:hover {
+    background-color: #0a63e9;
+}

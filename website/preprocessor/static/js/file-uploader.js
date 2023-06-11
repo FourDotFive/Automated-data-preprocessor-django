@@ -115,7 +115,7 @@ function submitFile() {
     Swal.fire({
         title: 'Wait a second!',
         html: 'I will close in <b></b> milliseconds.',
-        timer: 1200,
+        timer: 1000,
         timerProgressBar: true,
         didOpen: () => {
             Swal.showLoading()
@@ -130,8 +130,33 @@ function submitFile() {
     }).then((result) => {
 
         if (result.dismiss === Swal.DismissReason.timer) {
-            console.log('I was closed by the timer')
-            document.getElementById('submit-button').click();
+
+            Swal.fire({
+                title: 'Please provide the delimiter for your CSV or TXT file:',
+                html: `<input id="delimiter-input" class="form-control no-outline" type="text" value=";" style="width: 70px; display: inline-block; outline: none" />
+                        <button id="delimiter-submit" class="btn no-outline" style="display: inline-block">Submit</button>`,
+                showConfirmButton: false,
+                didOpen: () => {
+                    const input = Swal.getPopup().querySelector('#delimiter-input')
+                    const button = Swal.getPopup().querySelector('#delimiter-submit')
+                    button.onclick = () => {
+                        console.log(input.value);
+                        if (!input.value) {
+                            Swal.showValidationMessage('You need to write something!')
+                        } else {
+                            // Perform your actions here with input.value as the delimiter
+                            document.getElementById('id_delimiter').value = input.value;
+
+                            document.getElementById('submit-button').click();
+                            Swal.close()
+                        }
+                    }
+                },
+                willClose: () => {
+                    fileInput.value = '';
+                }
+            })
+
         }
         else {
             fileInput.value = '';

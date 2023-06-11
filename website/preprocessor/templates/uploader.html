@@ -59,6 +59,7 @@
                     <form method="post" enctype="multipart/form-data" id="uploadForm">
                         {% csrf_token %}
                         {{ file_form.file }}
+                        {{ file_form.delimiter }}
                         <input id="submit-button" class=" btn mt-3" type="submit" value="Submit" style="display: none;">
                     </form>
                 </div>

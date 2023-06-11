@@ -1,0 +1,38 @@
+{% extends 'uploader.html' %}
+{% load static %}
+
+{% block title %}
+<title>Success</title>
+{% endblock %}
+
+{% block dependencies %}
+
+{% endblock %}
+
+{% block content %}
+
+<style>
+    a.no-decoration {
+        color: inherit;
+    }
+</style>
+
+<div class="container-fluid full-height" style="padding-top: 130px;">
+
+    <div class="row">
+        <div class="col-7 mx-auto">
+
+            <div class="col-12 mx-auto text-center">
+
+
+                <h1>Success!</h1>
+                <h3>You can go back to our <a class="no-decoration" href="{% url 'uploader' %}">Homepage</a></h3>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}
