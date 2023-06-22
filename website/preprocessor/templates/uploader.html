@@ -60,6 +60,12 @@
                         {% csrf_token %}
                         {{ file_form.file }}
                         {{ file_form.delimiter }}
+                        <div class="form-check">
+                            {{ file_form.if_detect_delimiter }}
+                            <label class="form-check-label" for="{{ form.if_detect_delimiter.id_for_label }}">
+                                {{ file_form.if_detect_delimiter.label }}
+                            </label>
+                        </div>
                         <input id="submit-button" class=" btn mt-3" type="submit" value="Submit" style="display: none;">
                     </form>
                 </div>
