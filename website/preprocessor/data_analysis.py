@@ -42,7 +42,7 @@ def analyse_df(df: pd.DataFrame):
 
     # print(stats)
 
-    return df.head(10)
+    return df.head(50)
 
 
 
