@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .forms import FileUploadForm
-from .data_analysis import read_file, analyse_df
+from .data_analysis import read_file, analyse_df, get_delimiter
 
 
 def file_uploader_view(request):
@@ -9,10 +9,12 @@ def file_uploader_view(request):
         if file_form.is_valid():
             file = request.FILES['file']
             if_detect_delimiter = file_form.cleaned_data.get('if_detect_delimiter')
-            delimiter = file_form.cleaned_data['delimiter']
-            # print(delimiter)
+            if if_detect_delimiter:
+                delimiter = get_delimiter(file)
+            else:
+                delimiter = file_form.cleaned_data['delimiter']
             try:
-                df = read_file(file)
+                df = read_file(file, delimiter)
                 df_head = analyse_df(df)
                 df_html = df_head.to_html()
                 context = {
