@@ -11,9 +11,9 @@ class FileUploadForm(forms.Form):
     )
     if_detect_delimiter = forms.BooleanField(
         required=False,
-        label='Detect CSV delimiter',
+        label='Auto detect CSV delimiter',
         widget=forms.CheckboxInput(
-            attrs={'class': 'form-check-input'}
+            attrs={'class': 'form-check-input', 'id': 'form-switch-button', 'checked': 'checked'}
         )
     )
     delimiter = forms.CharField(required=True)

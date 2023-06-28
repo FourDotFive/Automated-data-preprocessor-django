@@ -111,29 +111,52 @@ function dragLeaveHandler(ev) {
 
 function submitFile() {
     var fileInput = document.getElementById('id_file');
-    Swal.fire({
-        title: 'Please provide the delimiter for your CSV or TXT file:',
-        html: `<input id="delimiter-input" class="form-control no-outline" type="text" value=";" style="width: 70px; display: inline-block; outline: none" />
-                <button id="delimiter-submit" class="btn no-outline" style="display: inline-block">Submit</button>`,
-        showConfirmButton: false,
-        didOpen: () => {
-            const input = Swal.getPopup().querySelector('#delimiter-input')
-            const button = Swal.getPopup().querySelector('#delimiter-submit')
-            button.onclick = () => {
-                console.log(input.value);
-                if (!input.value) {
-                    Swal.showValidationMessage('You need to write something!')
-                } else {
-                    // Perform your actions here with input.value as the delimiter
-                    document.getElementById('id_delimiter').value = input.value;
+    var checkBox = document.getElementById("form-switch-button");
 
-                    document.getElementById('submit-button').click();
-                    Swal.close()
+    if (checkBox.checked == false) {
+        Swal.fire({
+            title: 'Please provide the delimiter for your CSV or TXT file:',
+            html: `<input id="delimiter-input" class="form-control no-outline" type="text" value=";" style="width: 70px; display: inline-block; outline: none" />
+                    <button id="delimiter-submit" class="btn no-outline" style="display: inline-block">Submit</button>`,
+            showConfirmButton: false,
+            didOpen: () => {
+                const input = Swal.getPopup().querySelector('#delimiter-input')
+                const button = Swal.getPopup().querySelector('#delimiter-submit')
+                button.onclick = () => {
+                    console.log(input.value);
+                    if (!input.value) {
+                        Swal.showValidationMessage('You need to write something!')
+                    } else {
+                        // Perform your actions here with input.value as the delimiter
+                        document.getElementById('id_delimiter').value = input.value;
+
+                        document.getElementById('submit-button').click();
+                        Swal.close()
+                    }
                 }
+            },
+            willClose: () => {
+                fileInput.value = '';
             }
-        },
-        willClose: () => {
-            fileInput.value = '';
-        }
-    })
+        })
+    } else {
+        document.getElementById('id_delimiter').value = ';';
+        document.getElementById('submit-button').click();
+    }
+
+
+
+}
+
+window.onload = function () {
+    document.querySelector("#form-switch-span input").addEventListener('focus',
+        function (event) {
+            event.target.blur();
+        });
+
+    document.getElementById('form-switch-button').addEventListener('mousedown',
+        function (
+            event) {
+            event.preventDefault();
+        });
 }

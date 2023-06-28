@@ -63,3 +63,14 @@
 #delimiter-submit:hover {
     background-color: #0a63e9;
 }
+
+#form-switch-button:checked {
+    background-color: #f0a628 !important;
+    border-color: #f0a628 !important;
+}
+
+.form-check-input:focus,
+.form-check-input:active {
+    box-shadow: none !important;
+    outline: none !important;
+}
