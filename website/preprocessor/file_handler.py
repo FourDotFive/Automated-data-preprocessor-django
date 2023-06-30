@@ -1,6 +1,8 @@
+import datetime
 import pandas as pd
 import os
 import csv
+from django.conf import settings
 
 
 def get_file_extension(uploaded_file):
@@ -8,10 +10,12 @@ def get_file_extension(uploaded_file):
 
 
 def get_delimiter(file):
+    # To reset the pointer to read from the file again.
+    file.seek(0)
     sample = file.read().decode('utf-8')
     sniffer = csv.Sniffer()
     dialect = sniffer.sniff(sample)
-    file.seek(0)    # To reset the pointer to read from the file again.
+    file.seek(0)
     return dialect.delimiter
 
 
@@ -41,6 +45,22 @@ def get_df_stats(df: pd.DataFrame):
 
 
 def get_file_name_and_size(file):
-    file_name = str(file)
+    file_name = file.name
     file_size = round(file.size / 1048576, 2)
     return file_name, file_size
+
+
+def save_file_by_chunks(file):
+    timestamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S-%f")
+    file_name = timestamp + '-' + file.name
+
+    file_dir = os.path.join(settings.MEDIA_ROOT, 'temp')
+    os.makedirs(file_dir, exist_ok=True)
+
+    file_path = os.path.join(settings.MEDIA_ROOT, 'temp', file_name)
+    print(file_path)
+
+    with open(file_path, 'wb+') as destination:
+        for chunk in file.chunks():
+            destination.write(chunk)
+    return file_path

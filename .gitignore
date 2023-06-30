@@ -2,3 +2,4 @@
 venv
 website/website/.env
 MagicTelescope.csv
+website/media/temp/*

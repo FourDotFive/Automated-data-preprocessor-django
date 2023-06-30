@@ -38,17 +38,50 @@
                                 {% for id, values in df_head_records.items %}
                                 <tr>
                                     <th>{{ id }}</th>
-
                                     {% for key, value in values.items %}
                                     <td>{{ value }}</td>
                                     {% endfor %}
-
-                                    {% endfor %}
                                 </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>
                 </div>
+
+                <script>
+                    $(document).ready(function () {
+                        $('.scrollable').on('scroll', function () {
+                            if ($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+                                console.log("You've reached the bottom of the scrollable element!");
+
+
+                                // $(document).ready(function () {
+                                //     var start = 0;
+                                //     var length = 20;
+                                //     $('.scrollable').on('scroll', function () {
+                                //         if ($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+                                //             console.log("You've reached the bottom of the scrollable element!");
+                                //             $.get('/more_data/', { start: start }, function (data) {
+                                //                 data.forEach(function (row) {
+                                //                     // Add a new row to the table for each data item
+                                //                     var newRow = '<tr>';
+                                //                     for (var key in row) {
+                                //                         newRow += '<td>' + row[key] + '</td>';
+                                //                     }
+                                //                     newRow += '</tr>';
+                                //                     $('#data-table').append(newRow);
+                                //                 });
+                                //                 start += length;
+                                //             });
+                                //         }
+                                //     });
+                                // });
+
+
+                            }
+                        });
+                    });
+                </script>
 
                 <h3 class="mt-5">You can go back to our <a class="no-decoration"
                         href="{% url 'uploader' %}">Homepage</a></h3>
