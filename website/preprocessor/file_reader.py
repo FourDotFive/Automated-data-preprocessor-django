@@ -27,22 +27,17 @@ def read_file(file, delimiter: str = ';'):
             raise ValueError('No data in the file')
 
 
-def analyse_df(df: pd.DataFrame):
-    # print(df.head())
+def get_df_head(df: pd.DataFrame, number_of_rows: int = 10):
+    df_head = df.head(number_of_rows)
+    df_head = df_head.to_dict('index')
+    return df_head
 
+
+def get_df_stats(df: pd.DataFrame):
     stats = df.describe(include='all')
     column_names = df.columns.values
     types_dict = df.dtypes.to_dict()
-
-    # print(types_dict)
-
-    # Print number of rows and columns
-    print("\nNumber of rows and columns:")
-    print(df.shape)
-
-    # print(stats)
-
-    return df.head(50)
+    return 1
 
 
 
