@@ -37,7 +37,10 @@ def get_df_stats(df: pd.DataFrame):
     stats = df.describe(include='all')
     column_names = df.columns.values
     types_dict = df.dtypes.to_dict()
-    return 1
+    return types_dict
 
 
-
+def get_file_name_and_size(file):
+    file_name = str(file)
+    file_size = round(file.size / 1048576, 2)
+    return file_name, file_size

@@ -8,6 +8,7 @@
 {% block dependencies %}
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <link rel="stylesheet" href="{% static 'css/data_stats.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -21,14 +22,36 @@
                 <div>
                     <h3 class="h3-bold">{{ file_name }} <span class="light-font">({{ file_size }} MB)</span></h3>
                 </div>
-                <div class="mx-auto text-center">
 
+                <div class="mx-auto text-center">
                     <div class="scrollable">
-                        {{ df_html|safe }}
+                        <table class="dataframe">
+                            <thead>
+                                <tr style="text-align: right;">
+                                    <th></th>
+                                    {% for column_name in column_names %}
+                                    <th>{{ column_name }}</th>
+                                    {% endfor %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for id, values in df_head_records.items %}
+                                <tr>
+                                    <th>{{ id }}</th>
+
+                                    {% for key, value in values.items %}
+                                    <td>{{ value }}</td>
+                                    {% endfor %}
+
+                                    {% endfor %}
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
-                <h3>You can go back to our <a class="no-decoration" href="{% url 'uploader' %}">Homepage</a></h3>
+                <h3 class="mt-5">You can go back to our <a class="no-decoration"
+                        href="{% url 'uploader' %}">Homepage</a></h3>
 
             </div>
 
