@@ -3,3 +3,4 @@ venv
 website/website/.env
 MagicTelescope.csv
 website/media/temp/*
+!website/media/temp/.gitkeep
