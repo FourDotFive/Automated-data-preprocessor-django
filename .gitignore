@@ -1,4 +1,4 @@
 .idea
 venv
 website/website/.env
-MagicTelescope.csv
+datasets for testing

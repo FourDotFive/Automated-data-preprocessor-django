@@ -25,7 +25,7 @@
 
                 <div class="mx-auto text-center">
                     <div class="scrollable">
-                        <table class="dataframe">
+                        <table class="dataframe" id="data-table">
                             <thead>
                                 <tr style="text-align: right;">
                                     <th></th>
@@ -50,36 +50,39 @@
 
                 <script>
                     $(document).ready(function () {
+                        let start = 20;
+                        let length = 20;
+                        let folder_name = "{{ folder_name }}";
+
+
+                        let isLoadingData = false;
+
                         $('.scrollable').on('scroll', function () {
-                            if ($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+                            if (!isLoadingData && $(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+                                isLoadingData = true; // Set the flag to true to prevent further requests
                                 console.log("You've reached the bottom of the scrollable element!");
 
+                                $.get('/more_data/', { start: start, folder_name: folder_name }, function (data) {
+                                    console.log(data);
+                                    start += length;
 
-                                // $(document).ready(function () {
-                                //     var start = 0;
-                                //     var length = 20;
-                                //     $('.scrollable').on('scroll', function () {
-                                //         if ($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
-                                //             console.log("You've reached the bottom of the scrollable element!");
-                                //             $.get('/more_data/', { start: start }, function (data) {
-                                //                 data.forEach(function (row) {
-                                //                     // Add a new row to the table for each data item
-                                //                     var newRow = '<tr>';
-                                //                     for (var key in row) {
-                                //                         newRow += '<td>' + row[key] + '</td>';
-                                //                     }
-                                //                     newRow += '</tr>';
-                                //                     $('#data-table').append(newRow);
-                                //                 });
-                                //                 start += length;
-                                //             });
-                                //         }
-                                //     });
-                                // });
+                                    for (var id in data) {
+                                        var newRow = '<tr>';
+                                        newRow += '<th>' + id + '</th>';
 
+                                        for (var key in data[id]) {
+                                            newRow += '<td>' + data[id][key] + '</td>';
+                                        }
 
+                                        newRow += '</tr>';
+                                        $('#data-table').append(newRow);
+                                    }
+
+                                    isLoadingData = false; // Reset the flag after the data has been loaded
+                                });
                             }
                         });
+
                     });
                 </script>
 
