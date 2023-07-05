@@ -33,13 +33,14 @@ def file_uploader_view(request):
             except ValueError as e:
                 return render(request, 'error.html', {'error_message': str(e)})
             else:
-
+                num_rows, num_cols = df.shape
                 try:
                     folder_name = save_file_and_info(
                         file=file,
                         name=file_name,
                         extension=file_extension,
                         delimiter=delimiter,
+                        df_shape=(num_rows, num_cols)
                     )
                 except OSError:
                     return render(request, 'error.html', {'error_message': 'Please connect with the support'})
@@ -52,9 +53,11 @@ def file_uploader_view(request):
                         'file_size': file_size,
                         'column_names': column_names,
                         'df_head_records': df_head_records_dict,
-                        'folder_name': folder_name
+                        'folder_name': folder_name,
+                        'num_rows': num_rows,
+                        'num_cols': num_cols
                     }
-                    return render(request, 'data_stats.html', context=context)
+                    return render(request, 'data-stats.html', context=context)
 
     file_form = FileUploadForm(request.POST)
     return render(request, 'uploader.html', context={'file_form': file_form})

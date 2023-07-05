@@ -64,7 +64,7 @@ def get_file_name_and_size(file):
     return round(file.size / 1048576, 2)
 
 
-def save_file_and_info(file, name, extension, delimiter):
+def save_file_and_info(file, name, extension, delimiter, df_shape):
     file.seek(0)
     timestamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S-%f")
 
@@ -79,7 +79,8 @@ def save_file_and_info(file, name, extension, delimiter):
     data = {
         'file_initial_name': name,
         'extension': extension,
-        'delimiter': delimiter
+        'delimiter': delimiter,
+        'shape': df_shape
     }
 
     with open(json_path, 'w') as json_file:

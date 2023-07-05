@@ -6,9 +6,9 @@
 {% endblock %}
 
 {% block dependencies %}
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<link rel="stylesheet" href="{% static 'css/data_stats.css' %}">
+<link rel="stylesheet" href="{% static 'css/data-stats.css' %}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="{% static 'js/data-stats.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -49,41 +49,10 @@
                 </div>
 
                 <script>
-                    $(document).ready(function () {
-                        let start = 20;
-                        let length = 20;
-                        let folder_name = "{{ folder_name }}";
-
-
-                        let isLoadingData = false;
-
-                        $('.scrollable').on('scroll', function () {
-                            if (!isLoadingData && $(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
-                                isLoadingData = true; // Set the flag to true to prevent further requests
-                                console.log("You've reached the bottom of the scrollable element!");
-
-                                $.get('/more_data/', { start: start, folder_name: folder_name }, function (data) {
-                                    console.log(data);
-                                    start += length;
-
-                                    for (var id in data) {
-                                        var newRow = '<tr>';
-                                        newRow += '<th>' + id + '</th>';
-
-                                        for (var key in data[id]) {
-                                            newRow += '<td>' + data[id][key] + '</td>';
-                                        }
-
-                                        newRow += '</tr>';
-                                        $('#data-table').append(newRow);
-                                    }
-
-                                    isLoadingData = false; // Reset the flag after the data has been loaded
-                                });
-                            }
-                        });
-
-                    });
+                    let start = 20;
+                    let length = 20;
+                    let folder_name = "{{ folder_name|escapejs  }}";
+                    let num_rows = "{{ num_rows|escapejs  }}";
                 </script>
 
                 <h3 class="mt-5">You can go back to our <a class="no-decoration"
